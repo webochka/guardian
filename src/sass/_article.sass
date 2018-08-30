@@ -1,0 +1,193 @@
+.wrap
+	background: #f6f6f6
+	min-height: 100%
+	
+.container
+	max-width: 850px
+	padding: 0 10px
+	margin: 0 auto
+
+.article
+	padding-top: 48px
+
+	&__title
+		+helvetica-font
+		font-size: 15px
+		color: #767676
+		text-transform: uppercase
+
+	&__info
+		display: flex
+		align-items: center
+		padding: 20px 0px
+
+		&-text
+			font-family: "Guard-bold"
+			padding-right: 36px
+			color: #121212
+			font-size: 48px
+
+			+r(474)
+				font-size: 30px
+
+.list
+	&__item
+		font-family: "Guard-reg" 
+		border-radius: 6px
+		background-color: #ffffff
+		margin-top: 10px
+		cursor: pointer
+		line-height: 24px
+
+		&--is-close
+			.list__more
+				visibility: hidden
+				opacity: 0
+				height: 0
+				animation: is-close 1s ease 0s
+
+			.list__title:after
+				transform: rotate(135deg)
+				transition: transform 1s ease 0s
+
+		&--is-open
+			.list__more
+				visibility: visible
+				opacity: 1
+				animation: is-open 1s ease 0s
+				padding-bottom: 15px
+				
+
+				&:before
+					animation: line-open 2s ease 0s
+
+			.list__title:after
+				transform: rotate(-45deg)
+				transition: transform 1s ease 0s
+
+	&__title
+		position: relative
+		padding: 10px 75px 12px 26px
+		color: #121212
+		font-size: 18px
+
+		&:after
+			display: block
+			content: ''
+			position: absolute
+			top: 40%
+			right: 40px
+			width: 8px
+			height: 8px
+			border-right: 2px solid #767676
+			border-top: 2px solid #767676
+			
+	&__more
+		font-size: 15px
+
+		&:before
+			content: ''
+			display: block
+			width: 100%
+			height: 2px
+			background: #c70000
+
+	&__desc
+		padding: 13px 75px 20px 26px
+		height: 115px
+		overflow: hidden
+
+	&__link
+		padding-left: 26px
+		color: #c70000
+
+
+		&:hover
+			text-decoration: underline
+		
+
+//btn
+.btn
+	+helvetica-font
+	padding: 10px 0
+	width: 143px
+	border-radius: 6px
+	background: #c70000
+	font-size: 13px
+	color: #ffffff
+	text-transform: uppercase
+
+	&:hover
+		background: rgba(#c70000, 0.7)
+
+
+.page
+	display: flex
+	justify-content: space-between
+	align-items: center
+	padding: 40px 0 67px
+
+	&__btn
+		opacity: 1
+		visibility: visible
+		transition: all 0.2s linear
+
+		+r(448)
+			width: 30%
+
+		+r(380)
+			width: 20%
+
+		&--is-hidden
+			opacity: 0
+			visibility: hidden
+			transition: all 0.2s linear
+
+	&__number-inner
+		font-family: "Helvetica"
+		font-size: 13px
+		font-weight: 700
+
+	&__input
+		width: 33px
+		padding: 6px 0px 6px 6px
+		border-radius: 6px
+		color: #c70000
+
+	&__number
+		color: #767676
+		padding-left: 6px
+		
+
+
+//keyframes
+
+@keyframes is-open
+	0% 
+		opacity: 0
+		height: 0
+	50% 
+		opacity: 0
+	100% 
+		opacity: 1
+		height: 155px
+
+@keyframes is-close
+	0% 
+		opacity: 1
+		height: 155px
+	50% 
+		opacity: 1
+	100% 
+		opacity: 0
+		height: 0
+
+
+@keyframes line-open
+	0% 
+		width: 0
+
+	100% 
+		width: 100%
+
+
