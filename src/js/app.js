@@ -51,7 +51,7 @@ class Article {
   }
 
   fetchTitle() {
-    this.url = `http://content.guardianapis.com/search?page=${this.input.value}&api-key=8993f650-bef9-4506-87e6-435b50a2e0ac`;
+    this.url = `https://content.guardianapis.com/search?page=${this.input.value}&api-key=8993f650-bef9-4506-87e6-435b50a2e0ac`;
     return fetch(this.url)
       .then(response => response.json())
       .then(responseBody => {
