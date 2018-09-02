@@ -9,6 +9,9 @@ class Article {
     this.input = document.getElementById('input');
     this.pageBtn = document.getElementsByClassName('page__btn');
 
+    this.listTitle = document.getElementsByClassName('list__title');
+    this.listItem = document.getElementsByClassName('list__item');
+
     this.animation = new TimelineMax();
 
     this.fetchTitle()
@@ -107,51 +110,52 @@ class Article {
   }
 
   renerDesc() {
+  
+    for (var i = 0; i < this.listTitle.length; i++) {
 
-    var listTitle = document.getElementsByClassName('list__title');
-    var listItem = document.getElementsByClassName('list__item');
+      this.listTitle[i].setAttribute('data-id', `${i}`);
 
-    for (var i = 0; i < listTitle.length; i++) {
-
-      listTitle[i].addEventListener('click', e => {
+      this.listTitle[i].addEventListener('click', e => {
+       
         var dataLink = e.target.getAttribute('data-link');
+        var id = e.target.getAttribute('data-id');
+        e.target.classList.toggle('list__title--is-open');
 
-        this.fetchDesc(dataLink)
-          .then(() => {
+        if(e.target.classList.contains('list__title--is-open')) {
 
-            var desc = this.body.response.content.blocks.body[0].bodyTextSummary;
-            var link = this.body.response.content.webUrl;
+          this.fetchDesc(dataLink)
+            .then(() => {
+              var desc = this.body.response.content.blocks.body[0].bodyTextSummary;
+              var link = this.body.response.content.webUrl;
 
-            for (var i = 0; i < listTitle.length; i++) {
-              var id = listTitle[i].setAttribute('data-id', `${i}`);
-            }
+              this.createDiv(id, desc, link);
 
-            for (var i = 0; i < listItem.length; i++) {
+              this.listItem[id].classList.remove('list__item--is-close');
+              this.listItem[id].classList.add('list__item--is-open');
 
-              var id = e.target.getAttribute('data-id');
+            });
 
-              if (i === +id) {
-
-                if (listItem[id].childNodes[1]) {
-                  listItem[id].removeChild(listItem[id].lastChild);
-                }
-
-                var div = document.createElement('div');
-                div.innerHTML = `<p class="list__desc">${desc}</p><a class="list__link" href="${link}">Read full news</a>`;
-                listItem[id].appendChild(div);
-                div.classList.add('list__more');
-
-                listItem[id].classList.toggle('list__item--is-close');
-                listItem[id].classList.toggle('list__item--is-open');
-
-              }
-
-            }
-          });
+        } else {
+          
+          this.listItem[id].classList.add('list__item--is-close');
+          this.listItem[id].classList.remove('list__item--is-open');
+        }
 
       });
 
     }
+
+  }
+
+  createDiv(id, desc, link) {
+    if (this.listItem[id].childNodes[1]) {
+      this.listItem[id].removeChild(this.listItem[id].lastChild);
+    }
+
+    var div = document.createElement('div');
+    div.innerHTML = `<p class="list__desc">${desc}</p><a class="list__link" href="${link}">Read full news</a>`;
+    this.listItem[id].appendChild(div);
+    div.classList.add('list__more');
 
   }
 
